@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CustomerService {
 
@@ -25,6 +28,12 @@ public class CustomerService {
         customerRepository.addCustomer(customer);
         logger.info("New customer saved in the database.");
         return mapCustomerToCustomerDto(customer);
+    }
+
+    public List<CustomerDto> getAllCustomers (String adminId) {
+        return customerRepository.getAllCustomers().stream()
+                .map(this::mapCustomerToCustomerDto)
+                .collect(Collectors.toList());
     }
 
     private CustomerDto mapCustomerToCustomerDto(Customer customer) {

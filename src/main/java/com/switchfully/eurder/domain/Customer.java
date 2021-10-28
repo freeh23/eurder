@@ -9,6 +9,7 @@ public class Customer {
     private String email;
     private Address address;
     private String phonenumber;
+    private boolean isAdmin;
 
     public Customer() {
         this.customerId = UUID.randomUUID().toString();
@@ -39,6 +40,11 @@ public class Customer {
         return this;
     }
 
+    public Customer setAdmin(boolean admin) {
+        isAdmin = admin;
+        return this;
+    }
+
     public String getCustomerId() {
         return customerId;
     }
@@ -61,5 +67,9 @@ public class Customer {
 
     public String getPhonenumber() {
         return phonenumber;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 }
