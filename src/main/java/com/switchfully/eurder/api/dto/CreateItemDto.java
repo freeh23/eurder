@@ -1,17 +1,13 @@
 package com.switchfully.eurder.api.dto;
 
-import com.switchfully.eurder.domain.Price;
 
 public class CreateItemDto {
 
     private String name;
     private String Description;
-    private Price price;
+    private double priceValue;
     private int amount;
 
-    public CreateItemDto() {
-        this.price = new Price(0.0);
-    }
 
     public CreateItemDto setName(String name) {
         this.name = name;
@@ -23,8 +19,8 @@ public class CreateItemDto {
         return this;
     }
 
-    public CreateItemDto setPrice(Price price) {
-        this.price = price;
+    public CreateItemDto setPriceValue(double priceValue) {
+        this.priceValue = priceValue;
         return this;
     }
 
@@ -41,8 +37,8 @@ public class CreateItemDto {
         return Description;
     }
 
-    public Price getPrice() {
-        return price;
+    public double getPriceValue() {
+        return priceValue;
     }
 
     public int getAmount() {

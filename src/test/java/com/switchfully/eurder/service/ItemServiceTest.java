@@ -54,7 +54,7 @@ class ItemServiceTest {
         createItemDto = new CreateItemDto()
                 .setName("appel")
                 .setDescription("round fruit from a tree")
-                .setPrice(new Price(0.25))
+                .setPriceValue(0.25)
                 .setAmount(5);
     }
 
@@ -90,11 +90,13 @@ class ItemServiceTest {
         assertThrows(IllegalArgumentException.class, () -> itemService.addItem(admin.getCustomerId(), createItemDtoWithNegativeAmount));
     }
 
+
     @Test
     void givenItemWithNegativePrice_whenAddThisItem_thenReturnIllegalArgumentException() {
         //given
         CreateItemDto createItemDtoWithNegativePrice = new CreateItemDto()
-                .setPrice(new Price(-5.3));
+                //.setPrice(new Price(-5.3));
+                        .setPriceValue(-5);
 
         //when
         //then
@@ -110,5 +112,6 @@ class ItemServiceTest {
     }
 
     //updateItem() tests
+
 
 }

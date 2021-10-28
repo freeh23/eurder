@@ -27,10 +27,11 @@ public class ItemService {
 
     public ItemDto addItem(String authorizedId, CreateItemDto createItemDto) {
         validation.assertCustomerHasAdminRights(authorizedId);
-        validation.assertValueIsNotNegative(createItemDto.getPrice().getPriceValue());
+        validation.assertValueIsNotNegative(createItemDto.getPriceValue());
         validation.assertValueIsNotNegative(createItemDto.getAmount());
-
+        logger.info("addItem(): validation done.");
         Item item = itemMapper.mapCreateItemDtoToItem(createItemDto);
+        logger.info("CreateItemDto mapped to Item.");
         itemRepository.addItem(item);
         logger.info("addItem(): input ok. Saving new item to the database.");
         return itemMapper.mapItemToItemDto(item);

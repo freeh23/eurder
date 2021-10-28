@@ -28,6 +28,11 @@ public class Item {
         return this;
     }
 
+    public Item setPriceValue(double priceValue) {
+        this.price = new Price(priceValue);
+        return this;
+    }
+
     public Item setAmount(int amount) {
         this.amount = amount;
         return this;

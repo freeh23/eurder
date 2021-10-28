@@ -3,6 +3,7 @@ package com.switchfully.eurder.service.mapper;
 import com.switchfully.eurder.api.dto.CreateItemDto;
 import com.switchfully.eurder.api.dto.ItemDto;
 import com.switchfully.eurder.domain.Item;
+import com.switchfully.eurder.domain.Price;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class ItemMapper {
         return new Item()
                 .setName(createItemDto.getName())
                 .setDescription(createItemDto.getDescription())
-                .setPrice(createItemDto.getPrice())
+                .setPriceValue(createItemDto.getPriceValue())
                 .setAmount(createItemDto.getAmount());
     }
 

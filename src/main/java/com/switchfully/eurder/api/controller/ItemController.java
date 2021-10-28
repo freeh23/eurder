@@ -21,6 +21,6 @@ public class ItemController {
     @PostMapping(produces = "application/json", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public ItemDto addItem(@RequestParam(name = "authorizedId") String authorizedId, @RequestBody CreateItemDto createItemDto) {
-        return itemService.addItem(authorizedId, createItemDto);
+         return itemService.addItem(authorizedId, createItemDto);
     }
 }
