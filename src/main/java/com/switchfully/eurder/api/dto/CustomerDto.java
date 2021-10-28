@@ -78,4 +78,16 @@ public class CustomerDto {
     public int hashCode() {
         return Objects.hash(customerId);
     }
+
+    @Override
+    public String toString() {
+        return "CustomerDto{" +
+                "customerId='" + customerId + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", address=" + address +
+                ", phonenumber='" + phonenumber + '\'' +
+                '}';
+    }
 }

@@ -3,7 +3,7 @@ package com.switchfully.eurder.domain;
 import java.util.UUID;
 
 public class Customer {
-    private String customerId;
+    private final String customerId;
     private String firstname;
     private String lastname;
     private String email;

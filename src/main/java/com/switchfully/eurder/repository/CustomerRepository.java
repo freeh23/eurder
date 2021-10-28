@@ -15,6 +15,7 @@ public class CustomerRepository {
 
     private final HashMap<String, Customer> customerRepo = new HashMap<>();
     Logger logger = LoggerFactory.getLogger(CustomerRepository.class);
+    String defaultAdminId;
 
     @Autowired
     public CustomerRepository() {
@@ -25,6 +26,7 @@ public class CustomerRepository {
                 .setAdmin(true);
         addCustomer(admin);
         System.out.println("default admin id: " + admin.getCustomerId());
+        defaultAdminId = admin.getCustomerId();
     }
 
     public Customer addCustomer(Customer customer) {
@@ -48,5 +50,9 @@ public class CustomerRepository {
 
     public Customer getCustomer(String customerId) {
         return customerRepo.get(customerId);
+    }
+
+    public String getDefaultAdminId() {
+        return this.defaultAdminId;
     }
 }
