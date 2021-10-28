@@ -3,7 +3,6 @@ package com.switchfully.eurder.api.dto;
 import com.switchfully.eurder.domain.Address;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class CustomerDto {
     private String customerId;

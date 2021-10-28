@@ -21,6 +21,7 @@ public class CustomerService {
     @Autowired
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
+
     }
 
     public CustomerDto createCustomer(CreateCustomerDto createCustomerDto) {
@@ -32,6 +33,7 @@ public class CustomerService {
 
     public List<CustomerDto> getAllCustomers(String adminId) {
         assertUserHasAdminRights(adminId);
+        logger.info(adminId + " has correct rights. Returning list of all customers from database.");
             return customerRepository.getAllCustomers().stream()
                     .map(this::mapCustomerToCustomerDto)
                     .collect(Collectors.toList());
@@ -40,6 +42,7 @@ public class CustomerService {
     public CustomerDto getCustomer(String adminId, String customerId) {
         assertUserHasAdminRights(adminId);
         assertIdExistsInTheDatabase(customerId);
+        logger.info("Correct input. Returning the asked CustomerDto");
         return mapCustomerToCustomerDto(customerRepository.getCustomer(customerId));
     }
 
