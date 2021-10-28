@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class CustomerServiceTest {
@@ -32,6 +33,13 @@ class CustomerServiceTest {
         customer3 = new Customer();
         customer4 = new Customer();
         admin = new Customer().setAdmin(true);
+
+
+        repository.addCustomer(customer1);
+        repository.addCustomer(customer2);
+        repository.addCustomer(customer3);
+        repository.addCustomer(customer4);
+        repository.addCustomer(admin);
     }
 
     //createCustomer tests
@@ -62,48 +70,66 @@ class CustomerServiceTest {
     //getAllCustomers tests
 
     @Test
-    void givenARepoWith4Customers_WhenGetAllCustomers_ThenReturnListOf4Customers() {
+    void givenARepoWith5Customers_WhenGetAllCustomers_ThenReturnListOf5Customers() {
         //given
-        repository.addCustomer(customer1);
-        repository.addCustomer(customer2);
-        repository.addCustomer(customer3);
-        repository.addCustomer(customer4);
 
         //when
         List<CustomerDto> listOfCustomers = service.getAllCustomers(admin.getCustomerId());
 
         //then
-        Assertions.assertEquals(4, listOfCustomers.size());
+        Assertions.assertEquals(5, listOfCustomers.size());
     }
 
     @Test
-    void givenARepoWith4Customers_WhenGetAllCustomersIsCalledWithNonAuthorizedId_ThenThrowIllegalArgumentException () {
-
-        Assertions.fail();
+    void givenARepoWith5Customers_WhenGetAllCustomersIsCalledWithNonAuthorizedId_ThenThrowIllegalArgumentException () {
+        //given
+        //when
+        //then
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.getAllCustomers(customer2.getCustomerId()));
     }
 
+    /* similar test -> void givenARepoWith5Customers_WhenGetAllCustomers_ThenReturnListOf5Customers()
+    */
     @Test
-    void givenARepoWith4Customers_WhenGetAllCustomersIsCalledWithAuthorizedId_ThenReturnListOfAllCustomers () {
-        Assertions.fail();
+    void givenARepoWith5Customers_WhenGetAllCustomersIsCalledWithAuthorizedId_ThenReturnListOfAllCustomers () {
+        //given
+        //when
+        List<CustomerDto> listOfCustomersInRep = service.getAllCustomers(admin.getCustomerId());
+        List<CustomerDto> listOfExpectedCustomers = new ArrayList<>();
+                listOfExpectedCustomers.add(service.mapCustomerToCustomerDto(customer1));
+                listOfExpectedCustomers.add(service.mapCustomerToCustomerDto(customer2));
+                listOfExpectedCustomers.add(service.mapCustomerToCustomerDto(customer3));
+                listOfExpectedCustomers.add(service.mapCustomerToCustomerDto(customer4));
+                listOfExpectedCustomers.add(service.mapCustomerToCustomerDto(admin));
+
+        //then
+        org.assertj.core.api.Assertions.assertThat(listOfCustomersInRep).hasSameElementsAs(listOfExpectedCustomers);
     }
 
 
     //getCustomer tests
 
     @Test
-    void givenARepoWith4Customers_WhenGetCustomerIsCalledWithNonAuthorizedId_ThenThrowIllegalArgumentException () {
-        Assertions.fail();
+    void givenARepoWith5Customers_WhenGetCustomerIsCalledWithNonAuthorizedId_ThenThrowIllegalArgumentException () {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.getCustomer(customer2.getCustomerId(), customer3.getCustomerId()));
     }
 
 
     @Test
-    void givenARepoWith4Customers_WhenGetCustomerWithWrongCustomerId_ThenThrowIllegalArgumentException () {
-        Assertions.fail();
+    void givenARepoWith5Customers_WhenGetCustomerWithWrongCustomerId_ThenThrowIllegalArgumentException () {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.getCustomer(admin.getCustomerId(), "randomId"));
     }
 
     @Test
-    void givenARepoWith4Customers_WhenGetCustomerIsCalledWithValidInput_ThenReturnTheRightCustomer () {
-        Assertions.fail();
+    void givenARepoWith5Customers_WhenGetCustomerIsCalledWithValidInput_ThenReturnTheRightCustomer () {
+        //given
+
+        //when
+        CustomerDto calledCustomer = service.getCustomer(admin.getCustomerId(), customer3.getCustomerId());
+
+        //then
+        Assertions.assertEquals(service.mapCustomerToCustomerDto(customer3), calledCustomer);
+
     }
 
 

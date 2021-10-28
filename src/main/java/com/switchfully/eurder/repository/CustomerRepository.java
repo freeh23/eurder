@@ -25,4 +25,13 @@ public class CustomerRepository {
     public List<Customer> getAllCustomers() {
         return new ArrayList<>(customerRepo.values());
     }
+
+    public boolean contains(String customerId) {
+        return customerRepo.containsKey(customerId);
+    }
+
+
+    public Customer getCustomer(String customerId) {
+        return customerRepo.get(customerId);
+    }
 }

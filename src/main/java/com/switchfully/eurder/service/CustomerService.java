@@ -30,13 +30,34 @@ public class CustomerService {
         return mapCustomerToCustomerDto(customer);
     }
 
-    public List<CustomerDto> getAllCustomers (String adminId) {
-        return customerRepository.getAllCustomers().stream()
-                .map(this::mapCustomerToCustomerDto)
-                .collect(Collectors.toList());
+    public List<CustomerDto> getAllCustomers(String adminId) {
+        assertUserHasAdminRights(adminId);
+            return customerRepository.getAllCustomers().stream()
+                    .map(this::mapCustomerToCustomerDto)
+                    .collect(Collectors.toList());
     }
 
-    private CustomerDto mapCustomerToCustomerDto(Customer customer) {
+    public CustomerDto getCustomer(String adminId, String customerId) {
+        assertUserHasAdminRights(adminId);
+        assertIdExistsInTheDatabase(customerId);
+        return mapCustomerToCustomerDto(customerRepository.getCustomer(customerId));
+    }
+
+    private void assertUserHasAdminRights(String adminId) {
+        assertIdExistsInTheDatabase(adminId);
+        if (!customerRepository.getCustomer(adminId).isAdmin()) {
+            throw new IllegalArgumentException(adminId + " does not have admin rights to perform this operation.");
+        }
+    }
+
+    private void assertIdExistsInTheDatabase(String customerId) {
+        if (!customerRepository.contains(customerId)) {
+            throw new IllegalArgumentException(customerId + " does not exist in the database.");
+        }
+    }
+
+
+    public CustomerDto mapCustomerToCustomerDto(Customer customer) {
         return new CustomerDto()
                 .setCustomerId(customer.getCustomerId())
                 .setFirstname(customer.getFirstname())
@@ -46,7 +67,7 @@ public class CustomerService {
                 .setPhonenumber(customer.getPhonenumber());
     }
 
-    private Customer mapCreateCustomerDtoToCustomer(CreateCustomerDto createCustomerDto) {
+    public Customer mapCreateCustomerDtoToCustomer(CreateCustomerDto createCustomerDto) {
         return new Customer()
                 .setFirstname(createCustomerDto.getFirstname())
                 .setLastname(createCustomerDto.getLastname())
@@ -54,6 +75,7 @@ public class CustomerService {
                 .setAddress(createCustomerDto.getAddress())
                 .setPhonenumber(createCustomerDto.getPhonenumber());
     }
+
 
 
 }
