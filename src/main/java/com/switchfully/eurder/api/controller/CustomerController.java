@@ -34,7 +34,7 @@ public class CustomerController {
 
     @GetMapping(path ="/{customerId}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerDto getCustomer(@PathVariable String customerId, @RequestParam(name = "authorizedId") String authorizedId) {
+    public CustomerDto getCustomer(@PathVariable String customerId, @RequestHeader(name = "authorizedId") String authorizedId) {
         return customerService.getCustomer(authorizedId, customerId);
     }
 }

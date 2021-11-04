@@ -21,7 +21,7 @@ public class OrderController {
 
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOrder(@RequestParam String customerId, @RequestBody CreateOrderDto createOrderDto) {
+    public void createOrder(@RequestHeader String customerId, @RequestBody CreateOrderDto createOrderDto) {
         orderService.createOrder(customerId, createOrderDto);
         //not finished, should return OrderDto
     }
