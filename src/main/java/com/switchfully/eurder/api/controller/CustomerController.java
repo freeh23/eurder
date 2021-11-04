@@ -28,7 +28,7 @@ public class CustomerController {
 
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<CustomerDto> getAllCustomer(@RequestParam(name = "authorizedId") String authorizedId) {
+    public List<CustomerDto> getAllCustomer(@RequestHeader(name = "authorizedId") String authorizedId) {
         return customerService.getAllCustomers(authorizedId);
     }
 
