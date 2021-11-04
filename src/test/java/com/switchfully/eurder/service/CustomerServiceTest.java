@@ -55,6 +55,7 @@ class CustomerServiceTest {
     void whenCreateCustomer_ThenExpectOneAdditionalEntryInRepo() {
         //given
         int initialAmountOfCustomersInRepo = customerRepository.size();
+        /*
         CreateCustomerDto createCustomerDto = new CreateCustomerDto()
                 .setFirstname("John")
                 .setLastname("Doe")
@@ -64,7 +65,19 @@ class CustomerServiceTest {
                         .setStreet("fakestreet")
                         .setHouseNumber("1")
                         .setCity("Brussel")
-                        .setPostalCode("1000"));
+                        .setPostalCode("1000"));*/
+        CreateCustomerDto createCustomerDto = CreateCustomerDto.CreateCustomerDtoBuilder.createCustomerDtoBuilder()
+                .withFirstname("John")
+                .withLastname("Doe")
+                .withEmail("john@mail.com")
+                .withPhonenumber("0499 99 99 99")
+                .withAddress(new Address()
+                        .setStreet("fakestreet")
+                        .setHouseNumber("1")
+                        .setCity("Brussel")
+                        .setPostalCode("1000"))
+                .build();
+
 
         //when
         customerService.createCustomer(createCustomerDto);
