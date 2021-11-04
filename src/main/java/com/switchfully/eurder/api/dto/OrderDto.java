@@ -1,23 +1,25 @@
-package com.switchfully.eurder.domain;
+package com.switchfully.eurder.api.dto;
+
+import com.switchfully.eurder.domain.ItemGroup;
 
 import java.util.List;
-import java.util.UUID;
 
-public class Order {
+public class OrderDto {
     private String customerId;
-    private final String orderId;
+    private String orderId;
     private List<ItemGroup> listOfItemGroups;
 
-    public Order() {
-        this.orderId = UUID.randomUUID().toString();
-    }
-
-    public Order setCustomerId(String customerId) {
+    public OrderDto setCustomerId(String customerId) {
         this.customerId = customerId;
         return this;
     }
 
-    public Order setListOfItemGroups(List<ItemGroup> listOfItemGroups) {
+    public OrderDto setOrderId(String orderId) {
+        this.orderId = orderId;
+        return this;
+    }
+
+    public OrderDto setListOfItemGroups(List<ItemGroup> listOfItemGroups) {
         this.listOfItemGroups = listOfItemGroups;
         return this;
     }

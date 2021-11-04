@@ -2,22 +2,22 @@ package com.switchfully.eurder.domain;
 
 import java.time.LocalDate;
 
-public class itemGroup {
+public class ItemGroup {
     private String itemId;
-    private int amount;
+    private int amountOrdered;
     private LocalDate shippingDate;
 
-    public itemGroup setItemId(String itemId) {
+    public ItemGroup setItemId(String itemId) {
         this.itemId = itemId;
         return this;
     }
 
-    public itemGroup setAmount(int amount) {
-        this.amount = amount;
+    public ItemGroup setAmountOrdered(int amountOrdered) {
+        this.amountOrdered = amountOrdered;
         return this;
     }
 
-    public itemGroup setShippingDate(LocalDate shippingDate) {
+    public ItemGroup setShippingDate(LocalDate shippingDate) {
         this.shippingDate = shippingDate;
         return this;
     }
@@ -26,8 +26,8 @@ public class itemGroup {
         return itemId;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getAmountOrdered() {
+        return amountOrdered;
     }
 
     public LocalDate getShippingDate() {

@@ -23,7 +23,6 @@ public class OrderService {
 
     public Order createOrder(String customerId, CreateOrderDto createOrderDto) {
         validation.assertCustomerIdExistsInTheDatabase(customerId);
-
-        return orderRepository.addOrder(orderMapper.mapCreateOrderDtoToOrder(createOrderDto));
+        return orderRepository.addOrder(orderMapper.mapCreateOrderDtoToOrder(createOrderDto, customerId));
     }
 }
