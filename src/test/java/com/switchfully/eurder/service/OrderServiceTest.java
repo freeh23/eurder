@@ -36,7 +36,7 @@ class OrderServiceTest {
         itemMapper = new ItemMapper();
         itemService = new ItemService(itemRepository, validationWithFakeRepo, itemMapper);
 
-        customer1 = new Customer();
+        customer1 = Customer.Builder.aCustomer().build();
         customerRepositoryFake.save(customer1);
 
         createOrderDto = new CreateOrderDto();

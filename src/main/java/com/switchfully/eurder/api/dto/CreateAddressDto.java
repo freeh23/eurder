@@ -1,27 +1,15 @@
-package com.switchfully.eurder.domain;
+package com.switchfully.eurder.api.dto;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 
-@Entity
-@Table(name = "address")
-public class Address {
+public class CreateAddressDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
-    @Column(name ="street")
-    private String street;
-    @Column(name ="housenumber")
-    private String houseNumber;
-    @Column(name ="city")
-    private String city;
-    @Column(name ="postalcode")
-    private String postalCode;
+    private final String street;
+    private final String houseNumber;
+    private final String city;
+    private final String postalCode;
 
-    public Address() {
-    }
-
-    private Address(String street, String houseNumber, String city, String postalCode) {
+    private CreateAddressDto(String street, String houseNumber, String city, String postalCode) {
         this.street = street;
         this.houseNumber = houseNumber;
         this.city = city;
@@ -44,7 +32,6 @@ public class Address {
         return postalCode;
     }
 
-
     public static final class Builder {
         private String street;
         private String houseNumber;
@@ -54,7 +41,7 @@ public class Address {
         private Builder() {
         }
 
-        public static Builder anAddress() {
+        public static Builder aCreateAddressDto() {
             return new Builder();
         }
 
@@ -78,8 +65,8 @@ public class Address {
             return this;
         }
 
-        public Address build() {
-            return new Address(street, houseNumber, city, postalCode);
+        public CreateAddressDto build() {
+            return new CreateAddressDto(street, houseNumber, city, postalCode);
         }
     }
 }

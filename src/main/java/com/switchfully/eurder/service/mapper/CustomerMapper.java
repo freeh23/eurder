@@ -13,7 +13,7 @@ public class CustomerMapper {
     public CustomerMapper() {
     }
 
-    public CustomerDto mapCustomerToCustomerDto(Customer customer) {
+    public CustomerDto mapToDto(Customer customer) {
         return new CustomerDto()
                 .setCustomerId(customer.getCustomerId())
                 .setFirstname(customer.getFirstname())
@@ -24,11 +24,12 @@ public class CustomerMapper {
     }
 
     public Customer mapToEntity(CreateCustomerDto createCustomerDto) {
-        return new Customer()
-                .setFirstname(createCustomerDto.getFirstname())
-                .setLastname(createCustomerDto.getLastname())
-                .setEmail(createCustomerDto.getEmail())
-                .setAddress(createCustomerDto.getAddress())
-                .setPhonenumber(createCustomerDto.getPhonenumber());
+        return Customer.Builder.aCustomer()
+                .withFirstname(createCustomerDto.getFirstname())
+                .withLastname(createCustomerDto.getLastname())
+                .withEmail(createCustomerDto.getEmail())
+                .withAddress(AddressMapper.toEntity(createCustomerDto.getCreateAddressDto()))
+                .withPhonenumber(createCustomerDto.getPhonenumber())
+                .build();
     }
 }

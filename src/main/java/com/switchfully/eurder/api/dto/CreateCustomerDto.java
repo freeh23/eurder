@@ -7,14 +7,14 @@ public class CreateCustomerDto {
     private final String firstname;
     private final String lastname;
     private final String email;
-    private final Address address;
+    private final CreateAddressDto createAddressDto;
     private final String phonenumber;
 
-    private CreateCustomerDto(String firstname, String lastname, String email, Address address, String phonenumber) {
+    private CreateCustomerDto(String firstname, String lastname, String email, CreateAddressDto address, String phonenumber) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.address = address;
+        this.createAddressDto = address;
         this.phonenumber = phonenumber;
     }
 
@@ -30,54 +30,102 @@ public class CreateCustomerDto {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public CreateAddressDto getCreateAddressDto() {
+        return createAddressDto;
     }
 
     public String getPhonenumber() {
         return phonenumber;
     }
 
+    public static final class Builder {
+        private String firstname;
+        private String lastname;
+        private String email;
+        private CreateAddressDto createAddressDto;
+        private String phonenumber;
+
+        private Builder() {
+        }
+
+        public static Builder aCreateCustomerDto() {
+            return new Builder();
+        }
+
+        public Builder withFirstname(String firstname) {
+            this.firstname = firstname;
+            return this;
+        }
+
+        public Builder withLastname(String lastname) {
+            this.lastname = lastname;
+            return this;
+        }
+
+        public Builder withEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder withAddress(CreateAddressDto createAddressDto) {
+            this.createAddressDto = createAddressDto;
+            return this;
+        }
+
+        public Builder withPhonenumber(String phonenumber) {
+            this.phonenumber = phonenumber;
+            return this;
+        }
+
+        public CreateCustomerDto build() {
+            return new CreateCustomerDto(firstname, lastname, email, createAddressDto, phonenumber);
+        }
+    }
 
 
-    public static class CreateCustomerDtoBuilder {
+
+
+/*
+    public static class Builder {
         private String firstname;
         private String lastname;
         private String email;
         private Address address;
         private String phonenumber;
 
-        public static CreateCustomerDtoBuilder builder() {
-            return new CreateCustomerDtoBuilder();
+        public static Builder builder() {
+            return new Builder();
         }
 
         public CreateCustomerDto build() {
             return new CreateCustomerDto(firstname, lastname, email, address, phonenumber);
         }
 
-        public CreateCustomerDtoBuilder withFirstname(String firstname) {
+        public Builder withFirstname(String firstname) {
             this.firstname = firstname;
             return this;
         }
 
-        public CreateCustomerDtoBuilder withLastname(String lastname) {
+        public Builder withLastname(String lastname) {
             this.lastname = lastname;
             return this;
         }
 
-        public CreateCustomerDtoBuilder withEmail(String email) {
+        public Builder withEmail(String email) {
             this.email = email;
             return this;
         }
 
-        public CreateCustomerDtoBuilder withAddress(Address address) {
+        public Builder withAddress(Address address) {
             this.address = address;
             return this;
         }
 
-        public CreateCustomerDtoBuilder withPhonenumber(String phonenumber) {
+        public Builder withPhonenumber(String phonenumber) {
             this.phonenumber = phonenumber;
             return this;
         }
     }
+    */
+
 }

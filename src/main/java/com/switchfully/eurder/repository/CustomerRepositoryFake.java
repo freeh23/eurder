@@ -20,11 +20,12 @@ public class CustomerRepositoryFake implements CustomerRepository {
 
     @Autowired
     public CustomerRepositoryFake() {
-        Customer admin = new Customer()
-                .setFirstname("Mr.")
-                .setLastname("Admin")
-                .setEmail("admin@eurder.com")
-                .setAdmin(true);
+        Customer admin = Customer.Builder.aCustomer()
+                .withFirstname("Mr.")
+                .withLastname("Admin")
+                .withEmail("admin@eurder.com")
+                .withIsAdmin(true)
+                .build();
         save(admin);
         System.out.println("default admin id: " + admin.getCustomerId());
         defaultAdminId = admin.getCustomerId();

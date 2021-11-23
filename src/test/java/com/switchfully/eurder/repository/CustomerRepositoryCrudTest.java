@@ -19,7 +19,7 @@ class CustomerRepositoryCrudTest {
 
     @BeforeEach
     void setUp() {
-        Customer customer = customerRepositoryCrud.save(new Customer());
+        Customer customer = customerRepositoryCrud.save(Customer.Builder.aCustomer().build());
         customerId = customer.getCustomerId();
     }
 
@@ -68,7 +68,7 @@ class CustomerRepositoryCrudTest {
         int numberOfEntriesBefore = customerRepositoryCrud.findAll().size();
 
         //when
-        customerRepositoryCrud.save(new Customer());
+        customerRepositoryCrud.save(Customer.Builder.aCustomer().build());
 
         //then
         assertEquals(numberOfEntriesBefore + 1, customerRepositoryCrud.findAll().size());

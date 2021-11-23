@@ -31,11 +31,11 @@ class ItemServiceTest {
     @BeforeEach
     void setup() {
         itemMapper = new ItemMapper();
-        customer1 = new Customer();
-        customer2 = new Customer();
-        customer3 = new Customer();
-        customer4 = new Customer();
-        admin = new Customer().setAdmin(true);
+        customer1 = Customer.Builder.aCustomer().build();
+        customer2 = Customer.Builder.aCustomer().build();
+        customer3 = Customer.Builder.aCustomer().build();
+        customer4 = Customer.Builder.aCustomer().build();
+        admin = Customer.Builder.aCustomer().withIsAdmin(true).build();
 
         customerRepositoryFake = new CustomerRepositoryFake();
         customerRepositoryFake.save(customer1);
