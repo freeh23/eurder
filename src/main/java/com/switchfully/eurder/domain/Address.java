@@ -1,9 +1,21 @@
 package com.switchfully.eurder.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "address")
 public class Address {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+    @Column(name ="street")
     private String street;
+    @Column(name ="housenumber")
     private String houseNumber;
+    @Column(name ="city")
     private String city;
+    @Column(name ="postalcode")
     private String postalCode;
 
 

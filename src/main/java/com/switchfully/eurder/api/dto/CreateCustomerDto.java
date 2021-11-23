@@ -4,46 +4,19 @@ import com.switchfully.eurder.domain.Address;
 
 public class CreateCustomerDto {
 
-    private String firstname;
-    private String lastname;
-    private String email;
-    private Address address;
-    private String phonenumber;
+    private final String firstname;
+    private final String lastname;
+    private final String email;
+    private final Address address;
+    private final String phonenumber;
 
-    public CreateCustomerDto(String firstname, String lastname, String email, Address address, String phonenumber) {
+    private CreateCustomerDto(String firstname, String lastname, String email, Address address, String phonenumber) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.address = address;
         this.phonenumber = phonenumber;
     }
-
-    /*
-    public CreateCustomerDto setFirstname(String firstname) {
-        this.firstname = firstname;
-        return this;
-    }
-
-    public CreateCustomerDto setLastname(String lastname) {
-        this.lastname = lastname;
-        return this;
-    }
-
-    public CreateCustomerDto setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public CreateCustomerDto setAddress(Address address) {
-        this.address = address;
-        return this;
-    }
-
-    public CreateCustomerDto setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
-        return this;
-    }
-    */
 
     public String getFirstname() {
         return firstname;
@@ -74,7 +47,7 @@ public class CreateCustomerDto {
         private Address address;
         private String phonenumber;
 
-        public static CreateCustomerDtoBuilder createCustomerDtoBuilder() {
+        public static CreateCustomerDtoBuilder builder() {
             return new CreateCustomerDtoBuilder();
         }
 

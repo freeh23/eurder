@@ -2,8 +2,7 @@ package com.switchfully.eurder.service;
 
 import com.switchfully.eurder.api.dto.CreateItemDto;
 import com.switchfully.eurder.domain.Customer;
-import com.switchfully.eurder.domain.Price;
-import com.switchfully.eurder.repository.CustomerRepository;
+import com.switchfully.eurder.repository.CustomerRepositoryFake;
 import com.switchfully.eurder.repository.ItemRepository;
 import com.switchfully.eurder.service.mapper.ItemMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ItemServiceTest {
 
-    Validation validation;
+    ValidationWithFakeRepo validationWithFakeRepo;
     ItemService itemService;
     ItemRepository itemRepository;
-    CustomerRepository customerRepository;
+    CustomerRepositoryFake customerRepositoryFake;
     ItemMapper itemMapper;
 
     Customer customer1;
@@ -38,17 +37,17 @@ class ItemServiceTest {
         customer4 = new Customer();
         admin = new Customer().setAdmin(true);
 
-        customerRepository = new CustomerRepository();
-        customerRepository.addCustomer(customer1);
-        customerRepository.addCustomer(customer2);
-        customerRepository.addCustomer(customer3);
-        customerRepository.addCustomer(customer4);
-        customerRepository.addCustomer(admin);
+        customerRepositoryFake = new CustomerRepositoryFake();
+        customerRepositoryFake.save(customer1);
+        customerRepositoryFake.save(customer2);
+        customerRepositoryFake.save(customer3);
+        customerRepositoryFake.save(customer4);
+        customerRepositoryFake.save(admin);
 
-        validation = new Validation(customerRepository);
+        validationWithFakeRepo = new ValidationWithFakeRepo(customerRepositoryFake);
 
         itemRepository = new ItemRepository();
-        itemService = new ItemService(itemRepository, validation, itemMapper);
+        itemService = new ItemService(itemRepository, validationWithFakeRepo, itemMapper);
 
 
         createItemDto = new CreateItemDto()

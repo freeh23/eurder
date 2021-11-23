@@ -11,18 +11,18 @@ import org.springframework.stereotype.Service;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final Validation validation;
+    private final ValidationWithFakeRepo validationWithFakeRepo;
     private final OrderMapper orderMapper;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, Validation validation, OrderMapper orderMapper) {
+    public OrderService(OrderRepository orderRepository, ValidationWithFakeRepo validationWithFakeRepo, OrderMapper orderMapper) {
         this.orderRepository = orderRepository;
-        this.validation = validation;
+        this.validationWithFakeRepo = validationWithFakeRepo;
         this.orderMapper = orderMapper;
     }
 
     public Order createOrder(String customerId, CreateOrderDto createOrderDto) {
-        validation.assertCustomerIdExistsInTheDatabase(customerId);
+        validationWithFakeRepo.assertCustomerIdExistsInTheDatabase(customerId);
         return orderRepository.addOrder(orderMapper.mapCreateOrderDtoToOrder(createOrderDto, customerId));
     }
 }

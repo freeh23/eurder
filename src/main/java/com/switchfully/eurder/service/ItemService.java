@@ -14,21 +14,21 @@ import org.springframework.stereotype.Service;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final Validation validation;
+    private final ValidationWithFakeRepo validationWithFakeRepo;
     private final ItemMapper itemMapper;
     private final Logger logger = LoggerFactory.getLogger(ItemService.class);
 
     @Autowired
-    public ItemService(ItemRepository itemRepository, Validation validation, ItemMapper itemMapper) {
+    public ItemService(ItemRepository itemRepository, ValidationWithFakeRepo validationWithFakeRepo, ItemMapper itemMapper) {
         this.itemRepository = itemRepository;
-        this.validation = validation;
+        this.validationWithFakeRepo = validationWithFakeRepo;
         this.itemMapper = itemMapper;
     }
 
     public ItemDto addItem(String authorizedId, CreateItemDto createItemDto) {
-        validation.assertCustomerHasAdminRights(authorizedId);
-        validation.assertValueIsNotNegative(createItemDto.getPriceValue());
-        validation.assertValueIsNotNegative(createItemDto.getAmount());
+        validationWithFakeRepo.assertCustomerHasAdminRights(authorizedId);
+        validationWithFakeRepo.assertValueIsNotNegative(createItemDto.getPriceValue());
+        validationWithFakeRepo.assertValueIsNotNegative(createItemDto.getAmount());
         logger.info("addItem(): validation done.");
         Item item = itemMapper.mapCreateItemDtoToItem(createItemDto);
         logger.info("CreateItemDto mapped to Item.");

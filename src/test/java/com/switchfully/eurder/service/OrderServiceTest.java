@@ -2,22 +2,20 @@ package com.switchfully.eurder.service;
 
 import com.switchfully.eurder.api.dto.CreateOrderDto;
 import com.switchfully.eurder.domain.Customer;
-import com.switchfully.eurder.domain.Item;
-import com.switchfully.eurder.repository.CustomerRepository;
+import com.switchfully.eurder.repository.CustomerRepositoryFake;
 import com.switchfully.eurder.repository.ItemRepository;
 import com.switchfully.eurder.repository.OrderRepository;
 import com.switchfully.eurder.service.mapper.ItemMapper;
 import com.switchfully.eurder.service.mapper.OrderMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Or;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrderServiceTest {
 
-    private CustomerRepository customerRepository;
-    private Validation validation;
+    private CustomerRepositoryFake customerRepositoryFake;
+    private ValidationWithFakeRepo validationWithFakeRepo;
     private OrderService orderService;
     private OrderRepository orderRepository;
     private Customer customer1;
@@ -30,16 +28,16 @@ class OrderServiceTest {
     @BeforeEach
     void setUp() {
         orderMapper = new OrderMapper();
-        customerRepository = new CustomerRepository();
-        validation = new Validation(customerRepository);
+        customerRepositoryFake = new CustomerRepositoryFake();
+        validationWithFakeRepo = new ValidationWithFakeRepo(customerRepositoryFake);
         orderRepository = new OrderRepository();
-        orderService = new OrderService(orderRepository, validation, orderMapper);
+        orderService = new OrderService(orderRepository, validationWithFakeRepo, orderMapper);
         itemRepository = new ItemRepository();
         itemMapper = new ItemMapper();
-        itemService = new ItemService(itemRepository, validation, itemMapper);
+        itemService = new ItemService(itemRepository, validationWithFakeRepo, itemMapper);
 
         customer1 = new Customer();
-        customerRepository.addCustomer(customer1);
+        customerRepositoryFake.save(customer1);
 
         createOrderDto = new CreateOrderDto();
 

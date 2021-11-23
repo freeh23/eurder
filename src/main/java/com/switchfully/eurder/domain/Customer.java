@@ -1,14 +1,25 @@
 package com.switchfully.eurder.domain;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "customers")
 public class Customer {
+    @Id
     private final String customerId;
+    @Column(name = "firstname")
     private String firstname;
+    @Column(name ="lastname")
     private String lastname;
+    @Column(name ="email")
     private String email;
+    @OneToOne
+    @JoinColumn(name ="fk_address_id")
     private Address address;
+    @Column(name ="phonenumber")
     private String phonenumber;
+    @Column(name ="admin")
     private boolean isAdmin;
 
     public Customer() {

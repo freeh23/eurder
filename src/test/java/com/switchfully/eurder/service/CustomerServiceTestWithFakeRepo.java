@@ -4,7 +4,7 @@ import com.switchfully.eurder.api.dto.CreateCustomerDto;
 import com.switchfully.eurder.api.dto.CustomerDto;
 import com.switchfully.eurder.domain.Address;
 import com.switchfully.eurder.domain.Customer;
-import com.switchfully.eurder.repository.CustomerRepository;
+import com.switchfully.eurder.repository.CustomerRepositoryFake;
 import com.switchfully.eurder.service.mapper.CustomerMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class CustomerServiceTest {
+class CustomerServiceTestWithFakeRepo {
 
     CustomerService customerService;
-    CustomerRepository customerRepository;
-    Validation validation;
+    CustomerRepositoryFake customerRepositoryFake;
+    ValidationWithFakeRepo validationWithFakeRepo;
     CustomerMapper customerMapper;
 
     Customer customer1;
@@ -30,10 +30,10 @@ class CustomerServiceTest {
 
     @BeforeEach
     void setup() {
-        customerRepository = new CustomerRepository();
-        validation = new Validation(customerRepository);
+        customerRepositoryFake = new CustomerRepositoryFake();
+        validationWithFakeRepo = new ValidationWithFakeRepo(customerRepositoryFake);
         customerMapper = new CustomerMapper();
-        customerService = new CustomerService(customerRepository, validation, customerMapper);
+        customerService = new CustomerService(customerRepositoryFake, validationWithFakeRepo, customerMapper);
         customer1 = new Customer().setFirstname("customer1");
         customer2 = new Customer().setFirstname("customer2");
         customer3 = new Customer().setFirstname("customer3");
@@ -42,11 +42,11 @@ class CustomerServiceTest {
         //BEWARE: default admin present by default when calling repo constructor...
 
 
-        customerRepository.addCustomer(customer1);
-        customerRepository.addCustomer(customer2);
-        customerRepository.addCustomer(customer3);
-        customerRepository.addCustomer(customer4);
-        customerRepository.addCustomer(admin);
+        customerRepositoryFake.save(customer1);
+        customerRepositoryFake.save(customer2);
+        customerRepositoryFake.save(customer3);
+        customerRepositoryFake.save(customer4);
+        customerRepositoryFake.save(admin);
     }
 
     //createCustomer tests
@@ -54,7 +54,7 @@ class CustomerServiceTest {
     @Test
     void whenCreateCustomer_ThenExpectOneAdditionalEntryInRepo() {
         //given
-        int initialAmountOfCustomersInRepo = customerRepository.size();
+        int initialAmountOfCustomersInRepo = customerRepositoryFake.size();
         /*
         CreateCustomerDto createCustomerDto = new CreateCustomerDto()
                 .setFirstname("John")
@@ -66,7 +66,7 @@ class CustomerServiceTest {
                         .setHouseNumber("1")
                         .setCity("Brussel")
                         .setPostalCode("1000"));*/
-        CreateCustomerDto createCustomerDto = CreateCustomerDto.CreateCustomerDtoBuilder.createCustomerDtoBuilder()
+        CreateCustomerDto createCustomerDto = CreateCustomerDto.CreateCustomerDtoBuilder.builder()
                 .withFirstname("John")
                 .withLastname("Doe")
                 .withEmail("john@mail.com")
@@ -83,7 +83,7 @@ class CustomerServiceTest {
         customerService.createCustomer(createCustomerDto);
 
         //then
-        assertEquals(initialAmountOfCustomersInRepo + 1, customerRepository.size());
+        assertEquals(initialAmountOfCustomersInRepo + 1, customerRepositoryFake.size());
     }
 
 
@@ -121,7 +121,7 @@ class CustomerServiceTest {
                 listOfExpectedCustomers.add(customerMapper.mapCustomerToCustomerDto(customer3));
                 listOfExpectedCustomers.add(customerMapper.mapCustomerToCustomerDto(customer4));
                 listOfExpectedCustomers.add(customerMapper.mapCustomerToCustomerDto(admin));
-                listOfExpectedCustomers.add(customerService.getCustomer(customerRepository.getDefaultAdminId(), customerRepository.getDefaultAdminId()));
+                listOfExpectedCustomers.add(customerService.getCustomer(customerRepositoryFake.getDefaultAdminId(), customerRepositoryFake.getDefaultAdminId()));
 
         //then
         org.assertj.core.api.Assertions.assertThat(listOfExpectedCustomers).hasSameElementsAs(listOfCustomersInRepo);

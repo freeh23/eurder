@@ -23,7 +23,7 @@ public class CustomerMapper {
                 .setPhonenumber(customer.getPhonenumber());
     }
 
-    public Customer mapCreateCustomerDtoToCustomer(CreateCustomerDto createCustomerDto) {
+    public Customer mapToEntity(CreateCustomerDto createCustomerDto) {
         return new Customer()
                 .setFirstname(createCustomerDto.getFirstname())
                 .setLastname(createCustomerDto.getLastname())
